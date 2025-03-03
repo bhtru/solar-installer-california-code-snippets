@@ -1,0 +1,126 @@
+.read-more-link {
+    color: #1E89C6;
+    font-weight: bold;
+}
+
+ .excerpt {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 100%; /* Ensures it does not exceed the container */
+    word-break: break-word; /* Prevents long words from breaking layout */
+  }
+
+{{id}} .container--large {
+    max-width: 800px;
+}
+
+{{id}} .directory-01__items {
+    margin-top: 20px;
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(1, 1fr);
+    list-style: none;
+}
+
+{{id}} .directory-01__item a {
+    padding: 12px;
+}
+
+{{id}} .directory-01__item {
+    border-radius: 16px;
+}
+.has-cardRadius {{id}} .card-container {
+border-radius: calc(var(--card-radius) / 0.625);
+}
+
+{{id}} .directory-01__item-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+}
+
+{{id}} .directory-01__title-box {
+    margin-bottom: 4px;
+}
+
+{{id}} .directory-01__content-box {
+    width: 100%;
+}
+
+{{id}} .directory-01__title {
+    font-size: 16px;
+}
+
+{{id}} .directory-01__links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0;
+}
+
+{{id}} .directory-01__text {
+    font-size: 20px;
+    margin-bottom: 12px;
+    width: 90%;
+    font-weight: 900;
+    color: black;
+}
+
+{{id}} .directory-01__content {
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+{{id}} .directory-01__logo {
+    width: 60px;
+    height: auto;
+    border-radius: 12px;
+    margin-right: 12px;
+}
+
+{{id}} .directory-01__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 0;
+    flex-wrap: wrap;
+    gap: 0;
+}
+
+{{id}} .directory-01__bottom-left {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0;
+    margin-right: 0;
+    width: calc(100% - 100px);
+}
+
+{{id}} .directory-01__bottom-right {
+    width: 100px;
+}
+
+{{id}} .directory-01__bottom-text {
+    font-size: 16px;
+    color: #747384;
+    padding-bottom: 2px;
+}
+
+@media (max-width: 768px) {
+   {{id}} .directory-01__item-box {
+    flex-direction: column;
+    align-items: start;
+}
+   {{id}} .directory-01__logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+}
