@@ -1,0 +1,12 @@
+.pill-link--blue {
+    background-color: #e6f9ff;
+    color: #2EB7EA;
+}
+
+.pill-link--blue .pill-link__pill {
+    background-color: #2EB7EA;
+}
+
+.pill-link--blue .pill-link__icon svg * {
+    fill: #2eb7ea;
+}
