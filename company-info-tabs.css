@@ -1,0 +1,23 @@
+.tabs-01-parent .title-box--center {
+    text-align: left;
+}
+
+.tabs-01-parent .container--small {
+    max-width: 1080px;
+}
+
+.tabs-01-parent .title-box__text {
+    max-width: 100%;
+}
+
+.tabs-01-parent .title-box {
+    max-width: 100%;
+}
+
+.tabs-01-parent .tabs-01__box {
+    text-align: left;
+}
+
+.tabs-01-parent .bottom_cta {
+    text-align: left;
+}
