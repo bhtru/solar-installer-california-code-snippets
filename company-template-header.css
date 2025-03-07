@@ -1,0 +1,38 @@
+.rating-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 0 1rem;
+}
+
+.rating-score {
+    margin-bottom: -5px;
+    color: #fbaf40;
+}
+
+.rating-score span {
+    font-size: 3rem;
+}
+
+.review-count,
+.review-link,
+.rating-label {
+    font-size: 0.75rem;
+}
+
+.review-link {
+    margin-bottom: 5px;
+}
+
+.review-count {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.75rem;
+}
+
+.badges {
+    display: none;
+}
+
+.is-first-component .text--03__wrapper {
+    align-items: flex-end;
+}

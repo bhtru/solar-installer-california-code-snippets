@@ -1,0 +1,28 @@
+.reasons-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+.reasons-column {
+    flex: 1;
+    min-width: 300px; /* Prevents columns from becoming too narrow */
+}
+
+/* Mobile: Stack into one column */
+@media (max-width: 768px) {
+    .reasons-wrapper {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+.reasons-list {
+    line-height: 1.5;
+}
+
+.reasons-list li {
+    /* display: block; */
+    margin-left: 1rem;
+}

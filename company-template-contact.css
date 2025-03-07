@@ -1,0 +1,30 @@
+.company-contact-info iframe {
+  width: 100%;
+  min-height: 400px;
+}
+
+.company-contact-info h2,
+.company-contact-info p {
+color: white;
+}
+
+.contact-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contact-column {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Mobile: Stack into one column */
+@media (max-width: 768px) {
+    .contact-wrapper {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
