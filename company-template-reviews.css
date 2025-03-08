@@ -1,0 +1,48 @@
+.features-09-parent .page-component__wrapper {
+    padding-top: 50px;
+}
+
+.features-09-parent .container--small,
+.features-09-parent .container--large {
+    max-width: 1080px;
+}
+
+.features-09-parent .heading,
+.features-09-parent .subtitle-text {
+    text-align: left;
+}
+
+.features-09-parent .title-box,
+.features-09-parent .subtitle-text {
+    margin-left: 0;
+    text-align: left;
+}
+
+.features-09-parent .heading {
+    font-size: 2em;
+}
+
+.star-rating {
+    margin-bottom: 0.5rem;
+}
+
+.features-09__list .content-text.tag {
+    background-color: #fef7eb !important;
+}
+
+.features-09__list .content-text.tag .tag__text {
+    color: #FBAF40;
+}
+
+.features-09__list .features-09__item {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.features-09__list .feature__button_box {
+    display: none;
+}
+
+.features-09__list> :last-child {
+    padding-top: 40px;
+}

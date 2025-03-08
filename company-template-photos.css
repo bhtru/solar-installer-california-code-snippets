@@ -1,0 +1,7 @@
+.photos-01-parent .page-component__wrapper {
+    padding-bottom: 0 !important;
+}
+
+.photos-01-parent .photos-01__person {
+    width: 33%;
+}

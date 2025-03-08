@@ -1,3 +1,7 @@
+.tabs-01-parent .page-component__wrapper {
+    padding-bottom: 50px !important;
+
+}
 .tabs-01-parent .title-box--center {
     text-align: left;
 }
