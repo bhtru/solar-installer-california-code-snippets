@@ -1,3 +1,12 @@
+.directory-01-parent .title-box {
+    text-align: left;
+}
+
+.directory-01-parent .heading--accent,
+.directory-01-parent .text--04__big_text {
+    font-size: 2em;
+}
+
 .read-more-link {
     color: #1E89C6;
     font-weight: bold;
