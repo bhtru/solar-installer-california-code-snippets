@@ -1,0 +1,59 @@
+<div id="solar-calculator" style="max-width: 500px; margin: 2rem auto; padding: 1.5rem; border: 1px solid #ddd; border-radius: 8px; font-family: sans-serif; background-color: #fff;">
+  <h2 style="text-align:center; font-size: 1.6rem; margin-bottom: 1rem;">Solar Savings Calculator</h2>
+  
+  <label style="display:block; margin-bottom: 1rem;">
+    <span style="font-weight: 600;">ZIP Code</span><br>
+    <input type="text" id="zip" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+  </label>
+  
+  <label style="display:block; margin-bottom: 1rem;">
+    <span style="font-weight: 600;">Monthly Electric Bill ($)</span><br>
+    <input type="number" id="bill" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+  </label>
+  
+  <label style="display:block; margin-bottom: 1rem;">
+    <span style="font-weight: 600;">Shading</span><br>
+    <select id="shading" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+      <option value="none">None</option>
+      <option value="partial">Partial</option>
+      <option value="heavy">Heavy</option>
+    </select>
+  </label>
+
+  <button onclick="calculateSolar()" style="width: 100%; padding: 10px; background-color: #007b5e; color: white; font-weight: bold; border: none; border-radius: 4px; cursor: pointer;">
+    Estimate Savings
+  </button>
+
+  <div id="results" style="margin-top: 2rem; display:none;">
+    <h3 style="border-bottom: 1px solid #eee; padding-bottom: 0.5rem;">Estimated Results</h3>
+    <p><strong>Recommended System Size:</strong> <span id="systemSize"></span> kW</p>
+    <p><strong>Estimated Installation Cost:</strong> $<span id="cost"></span></p>
+    <p><strong>Estimated Annual Savings:</strong> $<span id="savings"></span></p>
+    <p><strong>Payback Period:</strong> <span id="payback"></span> years</p>
+  </div>
+</div>
+
+<script>
+  function calculateSolar() {
+    const bill = parseFloat(document.getElementById('bill').value) || 0;
+    const shading = document.getElementById('shading').value;
+
+    let prodFactor = 1.4;
+    if (shading === "partial") prodFactor *= 0.85;
+    else if (shading === "heavy") prodFactor *= 0.65;
+
+    const annualUsage = bill * 12 / 0.22;
+    const systemSize = (annualUsage / (prodFactor * 1000)).toFixed(2);
+    const costPerWatt = 3.0;
+    const cost = (systemSize * 1000 * costPerWatt).toFixed(0);
+    const savings = (bill * 12).toFixed(0);
+    const payback = (cost / savings).toFixed(1);
+
+    document.getElementById('systemSize').innerText = systemSize;
+    document.getElementById('cost').innerText = cost;
+    document.getElementById('savings').innerText = savings;
+    document.getElementById('payback').innerText = payback;
+
+    document.getElementById('results').style.display = 'block';
+  }
+</script>
