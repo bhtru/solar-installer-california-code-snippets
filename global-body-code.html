@@ -1,0 +1,45 @@
+<script>
+document.addEventListener('click', function(e) {
+    const link = e.target.closest('a.pill-link.pill-link--blue');
+    if (link && link.hostname !== window.location.hostname) {
+        const url = new URL(link.href);
+
+        // UTM values for `.pill-link.pill-link--blue`
+        url.searchParams.set('utm_source', 'sica-solar-installer-california');
+        url.searchParams.set('utm_medium', 'referral');
+        url.searchParams.set('utm_campaign', 'installer-profile');
+        
+        const installerId = link.getAttribute('data-installer-id') || 'unknown';
+        // url.searchParams.set('utm_id', installerId);
+
+        url.searchParams.set('utm_content', 'get-quote-btn');
+
+        link.href = url.toString();
+    }
+});
+</script>
+
+<script>
+document.addEventListener('click', function(e) {
+    const link = e.target.closest('a:not(.pill-link.pill-link--blue)');
+    if (link && link.hostname !== window.location.hostname) {
+        const url = new URL(link.href);
+
+        // UTM values for global outbound links
+        url.searchParams.set('utm_source', 'sica-solar-installer-california');
+        url.searchParams.set('utm_medium', 'referral');
+        url.searchParams.set('utm_campaign', 'outbound-links');
+
+        // Dynamically use the element's class for `utm_content`
+        const elementClass = link.className.replace(/\s+/g, '-').toLowerCase() || 'unknown-element';
+        url.searchParams.set('utm_content', elementClass);
+
+        link.href = url.toString();
+    }
+});
+</script>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TCVNCML8"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
