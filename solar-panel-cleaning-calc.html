@@ -1,0 +1,128 @@
+<div style="max-width: 540px; margin: 2rem auto; padding: 1.5rem; border: 2px solid #ccc; border-radius: 10px; font-family: sans-serif;">
+  <h3 style="text-align: center;">💸 Solar Panel Dirt Loss Calculator</h3>
+  
+  <p style="font-size: 14px; text-align: center;">
+    Estimate how much dirty panels could be costing you each month or year.
+  </p>
+
+  <div style="margin-bottom: 1rem;">
+    <label><strong>Choose Input Method:</strong></label><br>
+    <label><input type="radio" name="inputMode" value="kw" checked onchange="toggleInput()"> System Size (kW)</label>
+    <label style="margin-left: 1rem;"><input type="radio" name="inputMode" value="sqft" onchange="toggleInput()"> Panel Area (sq ft)</label>
+  </div>
+
+  <div id="kwInput">
+    <label>
+      🔌 System Size (kW):
+      <input id="systemSize" type="number" min="0.1" step="0.1" value="6"
+        style="width: 100%; padding: 6px; background-color: #f2f2f2; border: 1px solid #ccc; margin-top: 5px; margin-bottom: 15px;">
+    </label>
+  </div>
+
+  <div id="sqftInput" style="display: none;">
+    <label>
+      📐 Panel Surface Area (sq ft):
+      <input id="panelArea" type="number" min="10" step="1" value="300"
+        style="width: 100%; padding: 6px; background-color: #f2f2f2; border: 1px solid #ccc; margin-top: 5px; margin-bottom: 10px;">
+    </label>
+    <label>
+      ⚡ Avg Production per sq ft (kWh/month): 
+      <input id="kWhPerSqft" type="number" min="0.1" step="0.1" value="1.5"
+        style="width: 100%; padding: 6px; background-color: #f2f2f2; border: 1px solid #ccc; margin-top: 5px; margin-bottom: 15px;">
+    </label>
+  </div>
+
+  <label>
+    Efficiency Loss from Dirt & Dust (%):
+    <input id="lossPercent" type="number" min="1" max="50" step="1" value="20"
+      style="width: 100%; padding: 6px; background-color: #f2f2f2; border: 1px solid #ccc; margin-top: 5px; margin-bottom: 15px;">
+  </label>
+
+  <label>
+    ⚡ Electricity Rate ($/kWh):
+    <input id="rate" type="number" min="0.01" step="0.01" value="0.41"
+      style="width: 100%; padding: 6px; background-color: #f2f2f2; border: 1px solid #ccc; margin-top: 5px; margin-bottom: 15px;">
+  </label>
+
+  <button onclick="calculateCost()"
+    style="width: 100%; padding: 12px; background-color: #1d4731; color: white; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
+    Calculate Cost
+  </button>
+
+  <div id="results" style="margin-top: 20px;"></div>
+
+  <p style="font-size: 12px; margin-top: 20px; color: #666;">
+    ⚠️ This tool provides an estimate based on average production assumptions. Actual output may vary depending on panel type, shading, angle, location, and soiling pattern.
+  </p>
+</div>
+
+<script>
+  function toggleInput() {
+    const mode = document.querySelector('input[name="inputMode"]:checked').value;
+    document.getElementById('kwInput').style.display = (mode === 'kw') ? 'block' : 'none';
+    document.getElementById('sqftInput').style.display = (mode === 'sqft') ? 'block' : 'none';
+  }
+
+  function calculateCost() {
+    const rate = parseFloat(document.getElementById('rate').value);
+    const lossPercent = parseFloat(document.getElementById('lossPercent').value);
+    const inputMode = document.querySelector('input[name="inputMode"]:checked').value;
+
+    let lostKWhMonthly = 0;
+    if (inputMode === 'kw') {
+      const kW = parseFloat(document.getElementById('systemSize').value);
+      if (!kW || kW > 50) return alert("Please enter a realistic system size (e.g. 1–30 kW).");
+      const avgMonthlyKWh = kW * 81.5;
+      lostKWhMonthly = avgMonthlyKWh * (lossPercent / 100);
+    } else {
+      const sqft = parseFloat(document.getElementById('panelArea').value);
+      const kWhPerSqft = parseFloat(document.getElementById('kWhPerSqft').value);
+      if (!sqft || sqft > 20000) return alert("Please enter a realistic panel area (e.g. under 2000 sq ft).");
+      const avgMonthlyKWh = sqft * kWhPerSqft;
+      lostKWhMonthly = avgMonthlyKWh * (lossPercent / 100);
+    }
+
+    const monthlyLoss = lostKWhMonthly * rate;
+    const yearlyLoss = monthlyLoss * 12;
+
+    document.getElementById('results').innerHTML = `
+      <hr>
+      <div style="text-align: center;">
+        <strong>🔻 Lost Energy:</strong><br>
+        ${lostKWhMonthly.toFixed(1)} kWh/month<br><br>
+
+        <div id="toggleView" style="margin-bottom: 10px;">
+          <button onclick="showMonthly()" style="margin: 5px; padding: 8px 16px; border-radius: 5px; background-color: #e0e0e0; border: 1px solid #ccc; cursor: pointer;">Show Monthly</button>
+          <button onclick="showYearly()" style="margin: 5px; padding: 8px 16px; border-radius: 5px; background-color: #e0e0e0; border: 1px solid #ccc; cursor: pointer;">Show Annual</button>
+        </div>
+
+        <div id="monthlyView">
+          <strong>💸 Monthly Cost of Dirty Panels:</strong><br>
+          <span style="font-size: 20px;">$${monthlyLoss.toFixed(2)}</span>
+        </div>
+
+        <div id="yearlyView" style="display: none;">
+          <strong>💸 Annual Cost of Dirty Panels:</strong><br>
+          <span style="font-size: 20px;">$${yearlyLoss.toFixed(2)}</span>
+        </div>
+
+        <hr>
+        <a href="https://saturnsolarcleaning.com/?utm_source=solar_installer_california&utm_medium=referral&utm_campaign=solar_cleaning_calc" 
+            target="_blank" 
+            style="color: #1d4731; margin-top: 1rem; text-decoration: underline;">
+            Learn more about Saturn Solar Cleaning
+        </a>
+      </div>
+    `;
+  }
+
+  function showMonthly() {
+    document.getElementById('monthlyView').style.display = 'block';
+    document.getElementById('yearlyView').style.display = 'none';
+  }
+
+  function showYearly() {
+    document.getElementById('monthlyView').style.display = 'none';
+    document.getElementById('yearlyView').style.display = 'block';
+  }
+</script>
