@@ -82,38 +82,67 @@
       lostKWhMonthly = avgMonthlyKWh * (lossPercent / 100);
     }
 
-    const monthlyLoss = lostKWhMonthly * rate;
-    const yearlyLoss = monthlyLoss * 12;
+      const monthlyLoss = lostKWhMonthly * rate;
+      const yearlyLoss = monthlyLoss * 12;
 
-    document.getElementById('results').innerHTML = `
-      <hr>
-      <div style="text-align: center;">
-        <strong>🔻 Lost Energy:</strong><br>
-        ${lostKWhMonthly.toFixed(1)} kWh/month<br><br>
+      const maxLoss = Math.max(monthlyLoss, yearlyLoss);
+      const monthlyHeight = (monthlyLoss / maxLoss) * 100;
+      const yearlyHeight = (yearlyLoss / maxLoss) * 100;
 
-        <div id="toggleView" style="margin-bottom: 10px;">
-          <button onclick="showMonthly()" style="margin: 5px; padding: 8px 16px; border-radius: 5px; background-color: #e0e0e0; border: 1px solid #ccc; cursor: pointer;">Show Monthly</button>
-          <button onclick="showYearly()" style="margin: 5px; padding: 8px 16px; border-radius: 5px; background-color: #e0e0e0; border: 1px solid #ccc; cursor: pointer;">Show Annual</button>
+      const barChartHTML = `
+      <div style="margin-top: 2rem;">
+        <strong style="font-size: 15px;">Visual Comparison</strong>
+        <div style="display: flex; justify-content: center; align-items: flex-end; height: 120px; margin-top: 1rem;">
+          <div style="margin: 0 20px; text-align: center;display: flex;flex-direction: column;height: 100%;justify-content: flex-end;">
+            <div style="transition: height 0.6s ease; height: ${monthlyHeight}%; width: 40px; background-color: #f7b614; border-radius: 5px 5px 0 0;"></div>
+            <div style="margin-top: 5px; font-size: 13px;">Monthly</div>
+          </div>
+          <div style="margin: 0 20px; text-align: center;display: flex;flex-direction: column;height: 100%;justify-content: flex-end;">
+            <div style="transition: height 0.6s ease; height: ${yearlyHeight}%; width: 40px; background-color: #1d4731; border-radius: 5px 5px 0 0;"></div>
+            <div style="margin-top: 5px; font-size: 13px;">Annual</div>
+          </div>
+        </div>
+        <div style="font-size: 12px; color: #666; margin-top: 0.5rem;">Bar height is proportional to relative cost</div>
+      </div>
+    `;
+
+      document.getElementById('results').innerHTML = `
+      <hr style="margin-top: 2rem; margin-bottom: 2rem;">
+      <div style="text-align: center; padding: 1rem 0;">
+        <strong style="font-size: 16px;">🔻 Estimated Energy Loss</strong>
+        <div style="font-size: 14px; color: #444; margin-top: 5px;">
+          ~${lostKWhMonthly.toFixed(1)} kWh lost per month from dirty panels
         </div>
 
-        <div id="monthlyView">
-          <strong>💸 Monthly Cost of Dirty Panels:</strong><br>
-          <span style="font-size: 20px;">$${monthlyLoss.toFixed(2)}</span>
+        <div style="margin-top: 1.5rem;">
+          <div id="toggleView" style="margin-bottom: 10px;">
+            <button onclick="showMonthly()" style="margin: 5px; padding: 8px 16px; border-radius: 5px; background-color: #e0e0e0; border: 1px solid #ccc; cursor: pointer;">Show Monthly</button>
+            <button onclick="showYearly()" style="margin: 5px; padding: 8px 16px; border-radius: 5px; background-color: #e0e0e0; border: 1px solid #ccc; cursor: pointer;">Show Annual</button>
+          </div>
+
+          <div id="monthlyView">
+            <strong>💸 Monthly Cost of Dirty Panels:</strong><br>
+            <span style="font-size: 24px; font-weight: bold;">$${monthlyLoss.toFixed(2)}</span>
+          </div>
+
+          <div id="yearlyView" style="display: none;">
+            <strong>💸 Annual Cost of Dirty Panels:</strong><br>
+            <span style="font-size: 24px; font-weight: bold;">$${yearlyLoss.toFixed(2)}</span>
+          </div>
         </div>
 
-        <div id="yearlyView" style="display: none;">
-          <strong>💸 Annual Cost of Dirty Panels:</strong><br>
-          <span style="font-size: 20px;">$${yearlyLoss.toFixed(2)}</span>
-        </div>
+        ${barChartHTML}
 
-        <hr>
+        <hr style="margin-top: 2rem; margin-bottom: 1.5rem;">
         <a href="https://saturnsolarcleaning.com/?utm_source=solar_installer_california&utm_medium=referral&utm_campaign=solar_cleaning_calc" 
             target="_blank" 
-            style="color: #1d4731; margin-top: 1rem; text-decoration: underline;">
-            Learn more about Saturn Solar Cleaning
+            style="color: #1d4731; text-decoration: underline;">
+            🔗 Learn more about Saturn Solar Cleaning
         </a>
       </div>
     `;
+
+
   }
 
   function showMonthly() {
